@@ -12,7 +12,7 @@ cc.Class({
     },
 
     touchGameStart() {
-        cc.director.loadSceneZ('game');
+        cc.director.loadScene('game');
     },
 
     start() { },
