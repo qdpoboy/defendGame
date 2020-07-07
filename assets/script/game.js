@@ -2,12 +2,27 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-
+        launcherNode: {
+            default: null,
+            type: cc.Node
+        },
+        launcherPrefab1: {
+            default: null,
+            type: cc.Prefab
+        }
     },
 
-    onLoad() { },
+    onLoad() {
+        this.initLauncher();
+    },
 
-    start() { },
+    //初始化发射器
+    initLauncher() {
+        let launcherPrefab = cc.instantiate(this.launcherPrefab1);
+        this.launcherNode.addChild(launcherPrefab);
+    },
+
+    // start() { },
 
     // update (dt) {},
 });
