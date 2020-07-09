@@ -18,7 +18,13 @@ cc.Class({
 
     onLoad() {
         this.initLauncher();
-        this.setBullet();
+        this.newBullet();
+    },
+
+    start() {
+        this.schedule(function () {
+            this.newBullet();
+        }, 2);
     },
 
     //初始化发射器
@@ -27,16 +33,16 @@ cc.Class({
         this.launcherNode.addChild(launcherPrefab);
     },
 
-    //设置子弹相关属性
-    setBullet() {
+    //生成子弹相关属性
+    newBullet() {
         let bulletPrefab = cc.instantiate(this.bulletPrefab);
         this.launcherNode.addChild(bulletPrefab);
         //为了让发射器挡住子弹
         bulletPrefab.zIndex = -10;
-        //
+        this.bullutJs = bulletPrefab.getComponent('bullet');
+        this.bullutJs.updateBulletAngle();
+        this.bullutJs.shootBullet();
     },
-
-    // start() { },
 
     // update (dt) {},
 });
