@@ -17,6 +17,7 @@ cc.Class({
     },
 
     onLoad() {
+        this.initPhysics();
         this.initLauncher();
         this.newBullet();
     },
@@ -25,6 +26,14 @@ cc.Class({
         this.schedule(function () {
             this.newBullet();
         }, 2);
+    },
+
+    //初始化物理系统
+    initPhysics() {
+        var phyobj = cc.director.getPhysicsManager();
+        phyobj.enabled = true;
+        //设置重力加速度为0
+        phyobj.gravity = cc.v2();
     },
 
     //初始化发射器
