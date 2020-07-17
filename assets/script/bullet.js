@@ -15,7 +15,12 @@ cc.Class({
     shootBullet() {
         this.rigidBody.linearVelocity = cc.v2(200, 200);
         console.log('子弹射击了');
-    }
+    },
+
+    //碰撞开始接触时
+    onBeginContact(contact, selfCollider, otherCollider) {
+        console.log('碰撞了' + otherCollider.tag);
+    },
 
     // start() { },
 
