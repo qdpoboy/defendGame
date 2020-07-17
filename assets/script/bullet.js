@@ -13,7 +13,7 @@ cc.Class({
     },
 
     shootBullet() {
-        this.rigidBody.linearVelocity = cc.v2(100, 200);
+        this.rigidBody.linearVelocity = cc.v2(200, 200);
         console.log('子弹射击了');
     }
 
