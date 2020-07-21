@@ -6,6 +6,25 @@ cc.Class({
             default: null,
             type: cc.Node
         },
+        baffleNode: {
+            default: null,
+            type: cc.Node
+        },
+        baffleSpeed: {
+            default: 0,
+            type: cc.Integer
+        },
+        circleCenter: {
+            default: cc.v2(0, 0),
+        },
+        circleRadius: {
+            default: 0,
+            type: cc.Float
+        },
+        radian: {
+            default: 0,
+            type: cc.Float
+        },
         launcherPrefab1: {
             default: null,
             type: cc.Prefab
@@ -45,7 +64,6 @@ cc.Class({
         this.initData();
         this.initPhysics();
         this.initLauncher();
-        this.initBaffle();
         this.newBullet();
     },
 
@@ -93,21 +111,19 @@ cc.Class({
         this.launcherNode.addChild(launcherPrefab);
     },
 
-    //初始化卫星挡板
-    initBaffle() {
-        //this.schedule(this.baffleCircleMove, 0.01);
-    },
-
+    //卫星挡板旋转
     baffleCircleMove(dt) {
         //https://blog.csdn.net/Jff316948714/article/details/81193722
         // 先计算弧度
-        this.radian += dt * (this.carSpeed / 100);
-        let x = this.circleRadius * Math.cos(this.radian) + this.circleCenter.x;
-        let y = this.circleRadius * Math.sin(this.radian) + this.circleCenter.y;
-        let angle = 360 - 180 / Math.PI * this.radian;
-        this.sprCar.node.rotation = angle;
-        console.log('x = ' + x + '  y = ' + y + '  angle = ' + angle);
-        this.sprCar.node.position = cc.v2(x, y);
+        this.radian += dt * (this.baffleSpeed / 100);
+        // 顺时针旋转 x = 半径 * Math.sin(弧度) + 圆心的x坐标(逆时针则用cos)
+        // 顺时针旋转 y = 半径 * Math.cos(弧度) + 圆心的y坐标(逆时针则用sin)
+        let x = this.circleRadius * Math.sin(this.radian) + this.circleCenter.x;
+        let y = this.circleRadius * Math.cos(this.radian) + this.circleCenter.y;
+        //计算角度
+        let angle = 180 / Math.PI * this.radian;
+        this.baffleNode.angle = -angle;
+        this.baffleNode.position = cc.v2(x, y);
     },
 
     //生成子弹相关属性
@@ -129,7 +145,9 @@ cc.Class({
             this.btnNowBloodArr[tag] = nowBlood - this.stepBloodLoss;
             this.barArr[tag].progress = this.btnNowBloodArr[tag] / this.btnBloodArr[tag];
         }
-    }
+    },
 
-    // update (dt) {},
+    update(dt) {
+        this.baffleCircleMove(dt);
+    },
 });

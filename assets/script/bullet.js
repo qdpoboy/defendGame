@@ -25,7 +25,7 @@ cc.Class({
         if (otherCollider.tag >= 0 && otherCollider.tag <= 6) {//碰撞道具
             //碰撞道具减血
             this.game.collisionBloodLoss(otherCollider.tag);
-        } else if (otherCollider.tag > 6) {//碰撞墙体
+        } else if (otherCollider.tag > 6 && otherCollider.tag <= 10) {//碰撞墙体
             this.collisionWallCnt++;
         }
         //碰撞墙体两次后子弹消失
