@@ -122,6 +122,12 @@
       "__id__": 1
     },
     "_enabled": true,
+    "shootAudio": {
+      "__uuid__": "520e7bd0-916c-4c25-9543-8d6a798b28e7"
+    },
+    "hitAudio": {
+      "__uuid__": "cb9ff22f-5fe9-46b0-9554-32bbade65298"
+    },
     "_id": ""
   },
   {

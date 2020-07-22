@@ -139,11 +139,18 @@ cc.Class({
     },
 
     //碰撞减血
-    collisionBloodLoss(tag) {
+    collisionBloodLoss(collider) {
+        let tag = collider.tag;
         if (this.barArr[tag]) {
             let nowBlood = this.btnNowBloodArr[tag] ? this.btnNowBloodArr[tag] : this.btnBloodArr[tag];
             this.btnNowBloodArr[tag] = nowBlood - this.stepBloodLoss;
-            this.barArr[tag].progress = this.btnNowBloodArr[tag] / this.btnBloodArr[tag];
+            let progress = this.btnNowBloodArr[tag] / this.btnBloodArr[tag];
+            //血量低于50%，变透明，且不再碰撞
+            if (progress <= 0.5) {
+                collider.node.opacity = 125;
+                collider.enabled = false;
+            }
+            this.barArr[tag].progress = progress;
         }
     },
 
