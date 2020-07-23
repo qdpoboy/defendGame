@@ -70,7 +70,7 @@ cc.Class({
     start() {
         this.schedule(function () {
             this.newBullet();
-        }, 2);
+        }, 4);
     },
 
     //初始化数据
@@ -109,6 +109,10 @@ cc.Class({
     initLauncher() {
         let launcherPrefab = cc.instantiate(this.launcherPrefab1);
         this.launcherNode.addChild(launcherPrefab);
+        //设置发射器随机角度
+        this.rotateNum = Math.random() * 360;
+        let rotateAction = cc.rotateBy(0.5, this.rotateNum);
+        this.launcherNode.runAction(rotateAction);
     },
 
     //卫星挡板旋转
@@ -133,7 +137,7 @@ cc.Class({
         //为了让发射器挡住子弹
         bulletPrefab.zIndex = -10;
         this.bullutJs = bulletPrefab.getComponent('bullet');
-        this.bullutJs.updateBulletAngle();
+        this.bullutJs.updateBulletAngle(this.rotateNum);
         this.bullutJs.shootBullet();
         this.bullutJs.game = this;
     },
@@ -147,7 +151,7 @@ cc.Class({
             let progress = this.btnNowBloodArr[tag] / this.btnBloodArr[tag];
             //血量低于50%，变透明，且不再碰撞
             if (progress <= 0.5) {
-                collider.node.opacity = 125;
+                collider.node.opacity = 100;
                 collider.enabled = false;
             }
             this.barArr[tag].progress = progress;

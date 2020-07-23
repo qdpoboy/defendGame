@@ -19,14 +19,15 @@ cc.Class({
     },
 
     //设置子弹偏移角度
-    updateBulletAngle() {
-        this.node.angle = 45;
+    updateBulletAngle(rotateNum) {
+        console.log(rotateNum);
+        this.node.angle = 45 + rotateNum;
     },
 
     //子弹射击
     shootBullet() {
-        this.rigidBody.linearVelocity = cc.v2(200, 200);
         cc.audioEngine.playEffect(this.shootAudio, false);
+        this.rigidBody.linearVelocity = cc.v2(400, 400);
     },
 
     //碰撞开始接触时
