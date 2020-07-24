@@ -14,20 +14,25 @@ cc.Class({
 
     onLoad() {
         this.rigidBody = this.node.getComponent(cc.RigidBody);
+        this.direction = cc.v2(0, 0);
         //子弹碰撞墙体次数
         this.collisionWallCnt = 0;
     },
 
     //设置子弹偏移角度
     updateBulletAngle(rotateNum) {
-        console.log(rotateNum);
-        this.node.angle = 45 + rotateNum;
+        //根据偏移角度算出弧度，再求x y坐标
+        let radian = ((45 + rotateNum) / 180) * Math.PI;
+        let x = 1 * Math.sin(radian);
+        let y = 1 * Math.cos(radian);
+        this.direction = cc.v2(x, y);
     },
 
     //子弹射击
     shootBullet() {
         cc.audioEngine.playEffect(this.shootAudio, false);
-        this.rigidBody.linearVelocity = cc.v2(400, 400);
+        //缩放向量
+        this.rigidBody.linearVelocity = this.direction.mulSelf(300);
     },
 
     //碰撞开始接触时

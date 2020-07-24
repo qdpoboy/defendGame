@@ -64,13 +64,13 @@ cc.Class({
         this.initData();
         this.initPhysics();
         this.initLauncher();
-        this.newBullet();
+        // this.newBullet();
     },
 
     start() {
         this.schedule(function () {
             this.newBullet();
-        }, 4);
+        }, 3);
     },
 
     //初始化数据
